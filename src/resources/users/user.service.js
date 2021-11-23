@@ -1,5 +1,7 @@
-const usersRepo = require('./user.memory.repository');
+const User = require('./user.model');
 
-const getAll = () => usersRepo.getAll();
+const create = async (payload) => User.create(payload);
 
-module.exports = { getAll };
+const getAll = () => User.getAll();
+
+module.exports = { create, getAll };
