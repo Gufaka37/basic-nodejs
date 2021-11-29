@@ -1,5 +1,7 @@
 const express = require('express');
+
 const userRouter = require('./resources/users/user.router');
+const catalogRouter = require('./resources/catalog/catalog.router');
 
 const app = express();
 
@@ -14,5 +16,6 @@ app.use('/', (req, res, next) => {
 });
 
 app.use('/users', userRouter);
+app.use('/catalogs', catalogRouter);
 
 module.exports = app;
