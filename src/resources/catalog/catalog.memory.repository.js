@@ -17,4 +17,14 @@ const deleteById = async (id) => {
   return catalogDeletable;
 }
 
-module.exports = { add, getAll, getById, deleteById }
+const deleteCategoryById = async (catalogId, categoryId) => {
+  const updatedCatalog = catalogs.find((catalog) => catalog.id === catalogId);
+  if (updatedCatalog) {
+    const index = updatedCatalog.categories.findIndex((category) => category.id === categoryId);
+    if (index !== -1) {
+      updatedCatalog.categories.splice(index, 1);
+    }
+  }
+}
+
+module.exports = { add, getAll, getById, deleteById, deleteCategoryById }

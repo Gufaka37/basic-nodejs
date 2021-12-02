@@ -32,15 +32,19 @@ class Catalog {
   }
 
   async update(payload) {
-    const { title } = payload;
+    const { title, category } = payload;
     if (title !== undefined) this.title = title;
-
+    if (category !== undefined) this.categories.push(category);
     return this;
   }
 
   static async deleteById(id) {
-    const catalog = catalogRepo.deleteById(id);
+    const catalog = await catalogRepo.deleteById(id);
     return catalog;
+  }
+
+  static async deleteCategoryById(catalogId, categoryId) {
+    await catalogRepo.deleteCategoryById(catalogId, categoryId);
   }
 
   static toResponse(catalog) {
