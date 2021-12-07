@@ -44,6 +44,10 @@ class Category {
     return categoryDeletable;
   }
 
+  static async deleteProductById(categoryId, productId) {
+    await categoryRepo.deleteProductById(categoryId, productId);
+  }
+
   static toResponse(category) {
     const { id, title, catalogId, products} = category;
     return {id, title, catalogId, products }

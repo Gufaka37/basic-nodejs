@@ -18,7 +18,8 @@ const updateById = async (id, payload) => {
     ...payload,
     categories: payload.category
   }
-  return Catalog.updateById(id, catalogUpdatable)
+  const catalogUpdated = await Catalog.updateById(id, catalogUpdatable);
+  return catalogUpdated;
 }
 
 const deleteById = async (id) => {

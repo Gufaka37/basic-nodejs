@@ -1,4 +1,5 @@
 const categories = require('../../data/categories');
+// const catalogs = require('../../data/catalogs');
 
 const add = async (category) => {
   categories.push(category);
@@ -26,4 +27,14 @@ const deleteById = async (catalogId, categoryId) => {
   return categoryDeletable;
 }
 
-module.exports = { add, getAll, getById, deleteById }
+const deleteProductById = async (categoryId, productId) => {
+  const updatedCategory = categories.find((category) => category.id === categoryId);
+  if (updatedCategory) {
+    const index = updatedCategory.products.findIndex((product) => product.id === productId);
+    if (index !== -1) {
+      updatedCategory.products.splice(index, 1);
+    }
+  }
+}
+
+module.exports = { add, getAll, getById, deleteById, deleteProductById }

@@ -1,5 +1,6 @@
 const Category = require('./category.model');
 const Catalog = require('../catalog/catalog.model');
+const Product = require('../product/product.model');
 
 const create = async (catalogId, payloads) => {
   const categoryCreatable = {
@@ -21,7 +22,11 @@ const getById = async (catalogId, categoryId) => {
 }
 
 const updateById = async (catalogId, categoryId, payload) => {
-  const updatedCategory = await Category.updateById(catalogId, categoryId, payload);
+  const categoryUpdatable = {
+    ...payload,
+    products: payload.product
+  }
+  const updatedCategory = await Category.updateById(catalogId, categoryId, categoryUpdatable);
   return updatedCategory;
 }
 
@@ -29,7 +34,9 @@ const deleteById = async (catalogId, categoryId) => {
   const deletableCategory = await Category.deleteById(catalogId, categoryId);
 
   if (deletableCategory) {
+    const products = Product.getAll(categoryId);
     await Catalog.deleteCategoryById(catalogId, categoryId);
+    (await products).forEach((product) => {Product.deleteById(categoryId, product.id)})
   }
 
   return deletableCategory;
