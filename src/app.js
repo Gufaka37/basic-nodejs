@@ -1,5 +1,9 @@
 const express = require('express');
+
 const userRouter = require('./resources/users/user.router');
+const catalogRouter = require('./resources/catalog/catalog.router');
+const categoryRouter = require('./resources/category/category.router');
+const productRouter = require('./resources/product/product.router');
 
 const app = express();
 
@@ -14,5 +18,8 @@ app.use('/', (req, res, next) => {
 });
 
 app.use('/users', userRouter);
+app.use('/catalogs', catalogRouter);
+app.use('/catalogs', categoryRouter);
+app.use('/catalogs', productRouter);
 
 module.exports = app;
